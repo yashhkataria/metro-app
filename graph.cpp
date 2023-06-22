@@ -44,6 +44,14 @@ void menu() {
     g.addVertex("Hauz Khas");
     g.addVertex("IGI Terminal 1");
     g.addVertex("Huda City Center");
+
+    g.addEdge("Govindpuri","Kalkaji Mandir");
+    g.addEdge("Kalkaji Mandir","Lajpat Nagar");
+    g.addEdge("Lajpat Nagar","Nehru Enclave");
+    g.addEdge("Nehru Enclave","IIT");
+    g.addEdge("IIT","Hauz Khas");
+    g.addEdge("IIT","IGI Terminal 1");
+    g.addEdge("Hauz Khas","Huda City Center");
     
     cout<<"\n\t\t\t\t\t\tWELCOME TO METRO APP\t\t\t\t\t\t\n"<<endl;
     while(true) {
@@ -60,7 +68,12 @@ void menu() {
             g.showStations();
             cout<<endl<<endl;
         }
-        else if(choice>=2 && choice<=6) {
+        else if(choice==2) {
+            cout<<endl<<endl;
+            g.showMetroMap();
+            cout<<endl<<endl;
+        }
+        else if(choice>=3 && choice<=6) {
             cout<<"\n\nYour requested feature is under development.\n\n"<<endl;
         }
         else {
