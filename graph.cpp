@@ -3,7 +3,21 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+class Graph {
+    private:
+        unordered_map<int,vector<int>> vertices;
 
+    public:
+        void addVertex(int v) {
+            vertices[v]=vector<int>();
+        }
+
+        void addEdge(int src, int dest) {
+            //as travelling in both directions is possible, the graph is gonna be an undirected one
+            vertices[src].push_back(dest);
+            vertices[dest].push_back(src);
+        }
+};
 
 int main(){
 
