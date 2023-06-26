@@ -64,6 +64,14 @@ class Graph {
         }
 
         void minimumCostDjikstra(string srcCode,string destCode) {
+            
+            string srcStation = stationMapping[srcCode];
+            string destStation = stationMapping[destCode];
+
+            if(srcStation.empty() || destStation.empty()) {
+                cout<<"\nEither source or destination code is invalid\n\n";
+                return;
+            }
 
             unordered_map<string,int> stationIndices;
             int index = 0;
@@ -76,8 +84,8 @@ class Graph {
             vector<int> dist(n,INT_MAX);
             set<pair<int,string>> s;
 
-            dist[stationIndices[stationMapping[srcCode]]]=0;
-            s.insert(make_pair(0,stationMapping[srcCode]));
+            dist[stationIndices[srcStation]]=0;
+            s.insert(make_pair(0,srcStation));
 
             while(!s.empty()) {
                 auto top = *(s.begin());
@@ -98,7 +106,7 @@ class Graph {
                     }
                 }
             }
-            cout<<"\nThe minimum cost to travel from "<<stationMapping[srcCode]<<" to "<<stationMapping[destCode]<<" is "<<dist[stationIndices[stationMapping[destCode]]]<<" rupees.\n\n";
+            cout<<"\nThe minimum cost to travel from "<<srcStation<<" to "<<destStation<<" is "<<dist[stationIndices[destStation]]<<" rupees.\n\n";
         }
 };
 
