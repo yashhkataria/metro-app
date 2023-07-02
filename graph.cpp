@@ -195,6 +195,78 @@ class Graph {
             }
             cout<<"\nThe shortest distance from "<<srcStation<<" to "<<destStation<<" is "<<dist[stationIndices[destStation]]<<" KM.\n\n";
         }
+
+        void shortestPathDistanceWise(string srcCode,string destCode) {
+
+            string srcStation = stationMapping[srcCode];
+            string destStation = stationMapping[destCode];
+
+            queue<string> q;
+            unordered_map<string,bool> visited;
+            unordered_map<string,string> parent;
+
+            q.push(srcStation);
+            visited[srcStation]=true;
+            parent[srcStation]="\0";
+
+            while(!q.empty()) {
+                string fNode = q.front();
+                q.pop();
+                for(auto nbr: verticesDistance[fNode]) {
+                    if(!visited[nbr.first]) {
+                        q.push(nbr.first);
+                        visited[nbr.first]=true;
+                        parent[nbr.first]=fNode;
+                    }
+                }
+            }
+            vector<string> ans;
+            string node=destStation;
+            while(node!="\0") {
+                ans.push_back(node);
+                node=parent[node];
+            }
+
+            cout<<endl<<"Printing distance wise shortest path between "<<srcStation<<" and "<<destStation<<endl<<endl;
+            for(int i=ans.size()-1;i>=1;i--) cout<<ans[i]<<"->";
+            cout<<ans[0]<<endl<<endl;
+        }
+
+        void minimumCostPath(string srcCode, string destCode) {
+
+            string srcStation = stationMapping[srcCode];
+            string destStation = stationMapping[destCode];
+
+            queue<string> q;
+            unordered_map<string,bool> visited;
+            unordered_map<string,string> parent;
+
+            q.push(srcStation);
+            visited[srcStation]=true;
+            parent[srcStation]="\0";
+
+            while(!q.empty()) {
+                string fNode = q.front();
+                q.pop();
+                for(auto nbr: verticesCost[fNode]) {
+                    if(!visited[nbr.first]) {
+                        q.push(nbr.first);
+                        visited[nbr.first]=true;
+                        parent[nbr.first]=fNode;
+                    }
+                }
+            }
+            vector<string> ans;
+            string node=destStation;
+            while(node!="\0") {
+                ans.push_back(node);
+                node=parent[node];
+            }
+
+            cout<<endl<<"Printing the path from "<<srcStation<<" to "<<destStation<<" which costs the least"<<endl<<endl;
+            for(int i=ans.size()-1;i>=1;i--) cout<<ans[i]<<"->";
+            cout<<ans[0]<<endl<<endl;
+        }
 };
 
 void menu() {
@@ -275,11 +347,29 @@ void menu() {
 
             gCost.minimumCostDjikstra(src,dest);
         }
-        else if(choice==5 || choice==6) {
-            cout<<"\n\nYour requested feature is under development.\n\n"<<endl;
+
+        else if(choice==5) {
+            string src,dest;
+            cout<<"Enter the SOURCE station code(starting point): ";
+            cin>>src;
+            cout<<"Enter the DESTINATION station code(ending point): ";
+            cin>>dest;
+
+            gDistance.shortestPathDistanceWise(src,dest);
+        }
+
+        else if(choice==6) {
+            string src,dest;
+            cout<<"Enter the SOURCE station code(starting point): ";
+            cin>>src;
+            cout<<"Enter the DESTINATION station code(ending point): ";
+            cin>>dest;
+
+            gCost.minimumCostPath(src,dest);
         }
         else {
             cout<<"\n\nInvalid input! Please try again\n\n"<<endl;
+            break;
         }
     }
 }
