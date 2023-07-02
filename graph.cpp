@@ -13,14 +13,33 @@ class Graph {
 
         Graph() {
             stationMapping = {
-                {"GP","Govindpuri(GP)"},
                 {"KM","Kalkaji Mandir(KM)"},
-                {"LN", "Lajpat Nagar(LN)"},
-                {"NE", "Nehru Enclave(NE)"},
-                {"IIT", "IIT(IIT)"},
-                {"HK", "Hauz Khas(HK)"},
-                {"IGIT1", "IGI Terminal 1(IGIT1)"},
-                {"HCC", "Huda City Center(HCC)"}
+                {"NE","Nehru Enclave(NE)"},
+                {"CD","Chirag Delhi(CD)"},
+                {"GK1","Greater Kailash 1(GK1)"},
+                {"HK","Hauz Khas(HK)"},
+                {"MN","Malviya Nagar(MN)"},
+                {"SK","Saket(SK)"},
+                {"SKP","Sikanderpur(SKP)"},
+                {"MGR","MG Road(MGR)"},
+                {"HCC","Huda City Center(HCC)"},
+                {"CHP","Chhatarpur(CHP)"},
+                {"QM","Qutub Minar(QM)"},
+                {"RG","Rajouri Garden(RG)"},
+                {"KE","Kohat Enclave(KE)"},
+                {"AN","Adarsh Nagar(AN)"},
+                {"SB","Samaypur Badli(SB)"},
+                {"R14","Rohini Sector 14(R14)"},
+                {"CC","Chandni Chowk(CC)"},
+                {"ND","New Delhi(ND)"},
+                {"RC","Rajiv Chowk(RC)"},
+                {"KB","Karol Bagh(KB)"},
+                {"MH","Mandi House(MH)"},
+                {"NP","Nehru Place(NP)"},
+                {"JP","Janakpuri(JP)"},
+                {"PM","Palam(PM)"},
+                {"IGIT1","IGI Terminal 1(IGIT1)"},
+                {"IIT","IIT(IIT)"}
             };
         }
 
@@ -82,7 +101,7 @@ class Graph {
 
         void showMetroMapCost() {
 
-            cout<<"Following are the fares of travelling from source to destination"<<endl;
+            cout<<"Following are the fares of travelling from source to destination\n\n";
             for(auto station: verticesCost) {
                 cout<<station.first<<"->";
                 for(auto nbr: station.second) {
@@ -94,7 +113,7 @@ class Graph {
 
         void showMetroMapDistance() {
 
-            cout<<"\nFollowing are the distances from source to destination"<<endl;
+            cout<<"\nFollowing are the distances from source to destination\n\n";
             for(auto station: verticesDistance) {
                 cout<<station.first<<"->";
                 for(auto nbr: station.second) {
@@ -104,7 +123,13 @@ class Graph {
             }
         }
 
-        void minimumCostDjikstra(string srcCode,string destCode) {
+        void minimumCostDjikstra(string srcCode,string destCode) {\
+        
+
+            if(srcCode==destCode) {
+                cout<<"\nSource and Destination cannot be same\n\n";
+                return;
+            }
             
             string srcStation = stationMapping[srcCode];
             string destStation = stationMapping[destCode];
@@ -151,6 +176,11 @@ class Graph {
         }
 
         void minimumDistanceDjikstra(string srcCode,string destCode) {
+
+            if(srcCode==destCode) {
+                cout<<"\nSource and Destination cannot be same\n\n";
+                return;
+            }
             
             string srcStation = stationMapping[srcCode];
             string destStation = stationMapping[destCode];
@@ -198,6 +228,11 @@ class Graph {
 
         void shortestPathDistanceWise(string srcCode,string destCode) {
 
+            if(srcCode==destCode) {
+                cout<<"\nSource and Destination cannot be same\n\n";
+                return;
+            }
+
             string srcStation = stationMapping[srcCode];
             string destStation = stationMapping[destCode];
 
@@ -233,6 +268,11 @@ class Graph {
         }
 
         void minimumCostPath(string srcCode, string destCode) {
+
+            if(srcCode==destCode) {
+                cout<<"\nSource and Destination cannot be same\n\n";
+                return;
+            }
 
             string srcStation = stationMapping[srcCode];
             string destStation = stationMapping[destCode];
@@ -272,39 +312,123 @@ class Graph {
 void menu() {
 
     Graph gCost,gDistance;
-    gCost.addVertexCost("GP");
+
+    //ADDING STATIONS TO THE FARE GRAPH
     gCost.addVertexCost("KM");
-    gCost.addVertexCost("LN");
     gCost.addVertexCost("NE");
-    gCost.addVertexCost("IIT");
+    gCost.addVertexCost("CD");
+    gCost.addVertexCost("GK1");
     gCost.addVertexCost("HK");
-    gCost.addVertexCost("IGIT1");
+    gCost.addVertexCost("MN");
+    gCost.addVertexCost("SK");
+    gCost.addVertexCost("SKP");
+    gCost.addVertexCost("MGR");
     gCost.addVertexCost("HCC");
+    gCost.addVertexCost("CHP");
+    gCost.addVertexCost("QM");
+    gCost.addVertexCost("RG");
+    gCost.addVertexCost("KE");
+    gCost.addVertexCost("AN");
+    gCost.addVertexCost("SB");
+    gCost.addVertexCost("R14");
+    gCost.addVertexCost("CC");
+    gCost.addVertexCost("ND");
+    gCost.addVertexCost("RC");
+    gCost.addVertexCost("KB");
+    gCost.addVertexCost("MH");
+    gCost.addVertexCost("NP");
+    gCost.addVertexCost("JP");
+    gCost.addVertexCost("PM");
+    gCost.addVertexCost("IGIT1");
+    gCost.addVertexCost("IIT");
 
-    gDistance.addVertexDistance("GP");
+    //ADDING FARES TO THE FARE GRAPH
+    gCost.addEdgeCost("KM","NE",8);
+    gCost.addEdgeCost("NE","CD",10);
+    gCost.addEdgeCost("CD","GK1",12);
+    gCost.addEdgeCost("HK","GK1",14);
+    gCost.addEdgeCost("HK","MN",10);
+    gCost.addEdgeCost("SK","MN",7);
+    gCost.addEdgeCost("SK","SKP",9);
+    gCost.addEdgeCost("MGR","SKP",6);
+    gCost.addEdgeCost("MGR","HCC",10);
+    gCost.addEdgeCost("MGR","CHP",11);
+    gCost.addEdgeCost("QM","CHP",6);
+    gCost.addEdgeCost("QM","IIT",50);
+    gCost.addEdgeCost("QM","RG",8);
+    gCost.addEdgeCost("KE","RG",6);
+    gCost.addEdgeCost("KE","AN",11);
+    gCost.addEdgeCost("SB","AN",12);
+    gCost.addEdgeCost("SB","R14",5);
+    gCost.addEdgeCost("CC","R14",3);
+    gCost.addEdgeCost("CC","ND",12);
+    gCost.addEdgeCost("RC","ND",16);
+    gCost.addEdgeCost("RC","KB",7);
+    gCost.addEdgeCost("RC","MH",8);
+    gCost.addEdgeCost("NP","MH",4);
+    gCost.addEdgeCost("NP","KM",6);
+    gCost.addEdgeCost("IIT","IGIT1",18);
+    gCost.addEdgeCost("PM","IGIT1",20);
+    gCost.addEdgeCost("PM","JP",13);
+
+    //ADDING STATIONS TO THE DISTANCE GRAPH
     gDistance.addVertexDistance("KM");
-    gDistance.addVertexDistance("LN");
     gDistance.addVertexDistance("NE");
-    gDistance.addVertexDistance("IIT");
+    gDistance.addVertexDistance("CD");
+    gDistance.addVertexDistance("GK1");
     gDistance.addVertexDistance("HK");
-    gDistance.addVertexDistance("IGIT1");
+    gDistance.addVertexDistance("MN");
+    gDistance.addVertexDistance("SK");
+    gDistance.addVertexDistance("SKP");
+    gDistance.addVertexDistance("MGR");
     gDistance.addVertexDistance("HCC");
+    gDistance.addVertexDistance("CHP");
+    gDistance.addVertexDistance("QM");
+    gDistance.addVertexDistance("RG");
+    gDistance.addVertexDistance("KE");
+    gDistance.addVertexDistance("AN");
+    gDistance.addVertexDistance("SB");
+    gDistance.addVertexDistance("R14");
+    gDistance.addVertexDistance("CC");
+    gDistance.addVertexDistance("ND");
+    gDistance.addVertexDistance("RC");
+    gDistance.addVertexDistance("KB");
+    gDistance.addVertexDistance("MH");
+    gDistance.addVertexDistance("NP");
+    gDistance.addVertexDistance("JP");
+    gDistance.addVertexDistance("PM");
+    gDistance.addVertexDistance("IGIT1");
+    gDistance.addVertexDistance("IIT");
 
-    gCost.addEdgeCost("GP","KM",20);
-    gCost.addEdgeCost("KM","LN",25);
-    gCost.addEdgeCost("LN","NE",35);
-    gCost.addEdgeCost("NE","IIT",40);
-    gCost.addEdgeCost("IIT","HK",20);
-    gCost.addEdgeCost("IIT","IGIT1",50);
-    gCost.addEdgeCost("HK","HCC",45);
+    //ADDING DISTANCES TO THE DISTANCE GRAPH
+    gDistance.addEdgeDistance("KM","NE",8);
+    gDistance.addEdgeDistance("NE","CD",10);
+    gDistance.addEdgeDistance("CD","GK1",12);
+    gDistance.addEdgeDistance("HK","GK1",14);
+    gDistance.addEdgeDistance("HK","MN",10);
+    gDistance.addEdgeDistance("SK","MN",7);
+    gDistance.addEdgeDistance("SK","SKP",9);
+    gDistance.addEdgeDistance("MGR","SKP",6);
+    gDistance.addEdgeDistance("MGR","HCC",10);
+    gDistance.addEdgeDistance("MGR","CHP",11);
+    gDistance.addEdgeDistance("QM","CHP",6);
+    gDistance.addEdgeDistance("QM","IIT",50);
+    gDistance.addEdgeDistance("QM","RG",8);
+    gDistance.addEdgeDistance("KE","RG",6);
+    gDistance.addEdgeDistance("KE","AN",11);
+    gDistance.addEdgeDistance("SB","AN",12);
+    gDistance.addEdgeDistance("SB","R14",5);
+    gDistance.addEdgeDistance("CC","R14",3);
+    gDistance.addEdgeDistance("CC","ND",12);
+    gDistance.addEdgeDistance("RC","ND",16);
+    gDistance.addEdgeDistance("RC","KB",7);
+    gDistance.addEdgeDistance("RC","MH",8);
+    gDistance.addEdgeDistance("NP","MH",4);
+    gDistance.addEdgeDistance("NP","KM",6);
+    gDistance.addEdgeDistance("IIT","IGIT1",18);
+    gDistance.addEdgeDistance("PM","IGIT1",20);
+    gDistance.addEdgeDistance("PM","JP",13);
 
-    gDistance.addEdgeDistance("GP","KM",2);
-    gDistance.addEdgeDistance("KM","LN",2);
-    gDistance.addEdgeDistance("LN","NE",3);
-    gDistance.addEdgeDistance("NE","IIT",4);
-    gDistance.addEdgeDistance("IIT","HK",2);
-    gDistance.addEdgeDistance("IIT","IGIT1",5);
-    gDistance.addEdgeDistance("HK","HCC",4);
     
     cout<<"\n\t\t\t\t\t\tWELCOME TO METRO APP\t\t\t\t\t\t\n"<<endl;
     while(true) {
