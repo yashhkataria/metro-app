@@ -236,6 +236,11 @@ class Graph {
             string srcStation = stationMapping[srcCode];
             string destStation = stationMapping[destCode];
 
+            if(srcStation.empty() || destStation.empty()) {
+                cout<<"\nEither source or destination code is invalid\n\n";
+                return;
+            }
+
             queue<string> q;
             unordered_map<string,bool> visited;
             unordered_map<string,string> parent;
@@ -268,44 +273,70 @@ class Graph {
         }
 
         void minimumCostPath(string srcCode, string destCode) {
-
             if(srcCode==destCode) {
-                cout<<"\nSource and Destination cannot be same\n\n";
+                cout<<"\nSource and Destination cannot be the same\n\n";
                 return;
             }
 
             string srcStation = stationMapping[srcCode];
             string destStation = stationMapping[destCode];
 
-            queue<string> q;
-            unordered_map<string,bool> visited;
-            unordered_map<string,string> parent;
+            if(srcStation.empty() || destStation.empty()) {
+                cout<<"\nEither source or destination code is invalid\n\n";
+                return;
+            }
 
-            q.push(srcStation);
-            visited[srcStation]=true;
-            parent[srcStation]="\0";
+            priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
+            unordered_map<string, bool> visited;
+            unordered_map<string, int> cost;
+            unordered_map<string, string> parent;
 
-            while(!q.empty()) {
-                string fNode = q.front();
-                q.pop();
-                for(auto nbr: verticesCost[fNode]) {
-                    if(!visited[nbr.first]) {
-                        q.push(nbr.first);
-                        visited[nbr.first]=true;
-                        parent[nbr.first]=fNode;
+            pq.push(make_pair(0,srcStation));
+            visited[srcStation] = true;
+            cost[srcStation] = 0;
+            parent[srcStation] = "";
+
+            while(!pq.empty()) {
+                auto top = pq.top();
+                pq.pop();
+
+                int stationCost = top.first;
+                string stationName = top.second;
+
+                if(stationName==destStation) break;
+
+                if(stationCost>cost[stationName]) continue;
+
+                for(auto nbr: verticesCost[stationName]) {
+                    string nbrStation = nbr.first;
+                    int nbrCost = nbr.second;
+
+                    int newCost = stationCost + nbrCost;
+
+                    if(!visited[nbrStation] || newCost<cost[nbrStation]) {
+                        visited[nbrStation] = true;
+                        cost[nbrStation] = newCost;
+                        parent[nbrStation] = stationName;
+                        pq.push(make_pair(cost[nbrStation],nbrStation));
                     }
                 }
             }
-            vector<string> ans;
-            string node=destStation;
-            while(node!="\0") {
-                ans.push_back(node);
-                node=parent[node];
+
+            if(!visited[destStation]) {
+                cout<<"\nNo path exists between "<<srcStation<<" and "<< destStation<< "\n\n";
+                return;
             }
 
-            cout<<endl<<"Printing the path from "<<srcStation<<" to "<<destStation<<" which costs the least"<<endl<<endl;
-            for(int i=ans.size()-1;i>=1;i--) cout<<ans[i]<<"->";
-            cout<<ans[0]<<endl<<endl;
+            vector<string> path;
+            string node = destStation;
+            while(node != "") {
+                path.push_back(node);
+                node = parent[node];
+            }
+
+            cout << "\nPrinting the path from " <<srcStation<< " to " <<destStation<< " which costs the least:\n\n";
+            for(int i=path.size()-1; i>=1;i--) cout<<path[i]<<" -> ";
+            cout<<path.front()<<"\n\n";
         }
 };
 
@@ -493,7 +524,7 @@ void menu() {
         }
         else {
             cout<<"\n\nInvalid input! Please try again\n\n"<<endl;
-            break;
+            return;
         }
     }
 }
