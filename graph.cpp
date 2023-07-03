@@ -402,6 +402,7 @@ void menu() {
     gCost.addEdgeCost("CD","GK1",12);
     gCost.addEdgeCost("HK","GK1",14);
     gCost.addEdgeCost("HK","MN",10);
+    gCost.addEdgeCost("HK","IIT",8);
     gCost.addEdgeCost("SK","MN",7);
     gCost.addEdgeCost("SK","SKP",9);
     gCost.addEdgeCost("MGR","SKP",6);
@@ -460,6 +461,7 @@ void menu() {
     gDistance.addEdgeDistance("CD","GK1",12);
     gDistance.addEdgeDistance("HK","GK1",14);
     gDistance.addEdgeDistance("HK","MN",10);
+    gDistance.addEdgeDistance("HK","IIT",8);
     gDistance.addEdgeDistance("SK","MN",7);
     gDistance.addEdgeDistance("SK","SKP",9);
     gDistance.addEdgeDistance("MGR","SKP",6);
